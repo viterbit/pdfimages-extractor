@@ -5,12 +5,12 @@ This package provides a class to extract images from a pdf.
 ```php
 use Viterbit\PdfImagesExtractor\Pdf;
 
-echo Pdf::getImages('book.pdf'); //returns the text from the pdf
+$images = Pdf::getImages('book.pdf'); //returns a FilesystemIterator
 ```
 
 ## Requirements
 
-Behind the scenes this package leverages [pdfimages](https://en.wikipedia.org/wiki/Pdfimages). You can verify if the binary installed on your system by issueing this command:
+Behind the scenes this package leverages [pdfimages](https://en.wikipedia.org/wiki/Pdfimages). You can verify if the binary installed on your system by issuing this command:
 
 ```bash
 which pdfimages
@@ -46,10 +46,10 @@ composer viterbit/pdfimages-extractor
 
 ## Usage
 
-Extracting text from a pdf is easy.
+Getting images from a pdf is easy.
 
 ```php
-$text = (new Pdf())
+$images = (new Pdf())
     ->setPdf('book.pdf')
     ->images();
 ```
@@ -57,14 +57,14 @@ $text = (new Pdf())
 Or easier:
 
 ```php
-echo Pdf::getImages('book.pdf');
+$images = Pdf::getImages('book.pdf');
 ```
 
 By default the package will assume that the `pdftoimages` command is located at `/usr/bin/pdftoimages`.
 If it is located elsewhere pass its binary path to constructor
 
 ```php
-$text = (new Pdf('/custom/path/to/pdftoimages'))
+$images = (new Pdf('/custom/path/to/pdftoimages'))
     ->setPdf('book.pdf')
     ->images();
 ```
@@ -78,7 +78,7 @@ echo Pdf::getText('book.pdf', '/custom/path/to/pdftoimages');
 Sometimes you may want to use [pdfimages options](https://linux.die.net/man/1/pdfimages). To do so you can set them up using the `setOptions` method.
 
 ```php
-$text = (new Pdf())
+$images = (new Pdf())
     ->setPdf('book.pdf')
     ->setOptions(['j', 'f 1'])
     ->images()
@@ -88,7 +88,7 @@ $text = (new Pdf())
 or as the third parameter to the `getImages` static method:
 
 ```php
-echo Pdf::getImages('book.pdf', null, ['j', 'f 1']);
+$images = Pdf::getImages('book.pdf', null, ['j', 'f 1']);
 ```
 
 Please note that successive calls to `setOptions()` will overwrite options passed in during previous calls.
@@ -97,9 +97,8 @@ If you need to make multiple calls to add options (for example if you need to pa
 the `Pdf` object from a container, and then add context-specific options elsewhere), you can use the `addOptions()` method:
 
  ```php
- $text = (new Pdf())
+$images = (new Pdf())
      ->setPdf('book.pdf')
-     ->setOptions(['layout', 'r 96'])
      ->addOptions(['f 1'])
      ->images()
  ;
