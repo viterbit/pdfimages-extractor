@@ -1,6 +1,6 @@
 {
   "name": "app",
-  "version": "1.71.0",
+  "version": "0.2.0",
   "description": "Viterbit pdfimages-extractor",
   "devDependencies": {
     "@commitlint/cli": "^9.1.2",
