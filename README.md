@@ -10,6 +10,8 @@ $images = Pdf::getImages('book.pdf'); //returns a FilesystemIterator
 
 ## Requirements
 
+PHP 7.3+ and `symfony/process` 4.x, 5.x, 6.x, 7.x or 8.x (Symfony 8 requires PHP 8.4+).
+
 Behind the scenes this package leverages [pdfimages](https://en.wikipedia.org/wiki/Pdfimages). You can verify if the binary installed on your system by issuing this command:
 
 ```bash

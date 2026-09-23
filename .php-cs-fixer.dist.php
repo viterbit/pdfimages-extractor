@@ -16,7 +16,7 @@ $header = 'This file is part of the Viterbit vbApp package.
 For the full copyright and license information, please view the LICENSE
 file that was distributed with this source code.';
 
-return PhpCsFixer\Config::create()
+return (new PhpCsFixer\Config())
     ->setRiskyAllowed(false)
     ->setUsingCache(false)
     ->setRules(

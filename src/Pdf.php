@@ -26,7 +26,7 @@ final class Pdf
 
     protected $options = [];
 
-    public function __construct(string $binPath = null)
+    public function __construct(?string $binPath = null)
     {
         $this->binPath = $binPath ?? '/usr/bin/pdfimages';
     }
@@ -42,7 +42,7 @@ final class Pdf
         return $this;
     }
 
-    public function setDestinationFolder(string $destinationRootFolder = null): self
+    public function setDestinationFolder(?string $destinationRootFolder = null): self
     {
         $destinationRootFolder = $destinationRootFolder ?? sys_get_temp_dir();
         if (false === is_dir($destinationRootFolder)) {
@@ -89,7 +89,7 @@ final class Pdf
         return new \FilesystemIterator($this->destinationFolder, \FilesystemIterator::SKIP_DOTS);
     }
 
-    public static function getImages(string $pdf, string $destinationRootFolder = null, string $binPath = null, array $options = []): \FilesystemIterator
+    public static function getImages(string $pdf, ?string $destinationRootFolder = null, ?string $binPath = null, array $options = []): \FilesystemIterator
     {
         return (new static($binPath))
             ->setOptions($options)
