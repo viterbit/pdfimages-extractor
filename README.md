@@ -71,10 +71,10 @@ $images = (new Pdf('/custom/path/to/pdftoimages'))
     ->images();
 ```
 
-or as the second parameter to the `getImages` static method:
+or as the third parameter to the `getImages` static method:
 
 ```php
-echo Pdf::getText('book.pdf', '/custom/path/to/pdftoimages');
+$images = Pdf::getImages('book.pdf', null, '/custom/path/to/pdftoimages');
 ```
 
 Sometimes you may want to use [pdfimages options](https://linux.die.net/man/1/pdfimages). To do so you can set them up using the `setOptions` method.
@@ -87,10 +87,10 @@ $images = (new Pdf())
 ;
 ```
 
-or as the third parameter to the `getImages` static method:
+or as the fourth parameter to the `getImages` static method:
 
 ```php
-$images = Pdf::getImages('book.pdf', null, ['j', 'f 1']);
+$images = Pdf::getImages('book.pdf', null, null, ['j', 'f 1']);
 ```
 
 Please note that successive calls to `setOptions()` will overwrite options passed in during previous calls.
@@ -105,6 +105,31 @@ $images = (new Pdf())
      ->images()
  ;
  ```
+
+## Timeout
+
+Some PDFs make `pdfimages` loop forever, writing images until the disk runs out of inodes. pdfimages is killed after
+60 seconds by default; you can set another limit, in seconds, with `setTimeout()`:
+
+```php
+$images = (new Pdf())
+    ->setPdf('book.pdf')
+    ->setTimeout(10)
+    ->images();
+```
+
+or as the fifth parameter to the `getImages` static method:
+
+```php
+$images = Pdf::getImages('book.pdf', null, null, ['f 1', 'l 2'], 10);
+```
+
+When the `timeout` command is available (GNU coreutils, present on most Linux systems), pdfimages runs under
+`timeout -s KILL`, so the system kills it even if the PHP process that launched it dies first. Without it, only the
+Symfony Process timeout applies, and only while PHP is still waiting.
+
+If pdfimages does not finish in time, `images()` throws `ExtractionTimedOut`; if it fails, `CouldNotExtractImages`
+(which `ExtractionTimedOut` extends). In both cases the destination folder and the images already written are removed.
 
 ## Change log
 

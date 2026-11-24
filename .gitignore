@@ -7,3 +7,6 @@ node_modules
 .php_cs.cache
 composer.lock
 package-lock.json
+.phpunit.result.cache
+.phpunit.cache
+.phpcs-cache
