@@ -16,14 +16,21 @@
     "friendsofphp/php-cs-fixer": "^3.0",
     "php-parallel-lint/php-var-dump-check": "^0.5|^0.6",
     "phpstan/phpstan": "^1.12|^2.0",
-    "squizlabs/php_codesniffer": "^3.3"
+    "squizlabs/php_codesniffer": "^3.3",
+    "phpunit/phpunit": "^9.6|^10.5|^11.5|^12.0"
   },
   "scripts": {
-    "phpstan": "./vendor/bin/phpstan analyse -c phpstan.neon --no-progress -vvv"
+    "phpstan": "./vendor/bin/phpstan analyse -c phpstan.neon --no-progress -vvv",
+    "test": "./vendor/bin/phpunit"
   },
   "autoload": {
     "psr-4": {
       "Viterbit\\PdfImagesExtractor\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Viterbit\\PdfImagesExtractor\\Tests\\": "tests"
     }
   }
 }
